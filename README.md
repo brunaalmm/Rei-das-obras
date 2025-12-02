@@ -7,7 +7,5 @@ O Sistema Integrado de Gestão Empresarial foi desenvolvido em Python, tendo o f
 # Links
 
 **Apresentação:**  
-https://drive.google.com/uc?export=view&id=1mVeJ2Gs79G71yY26x9Dt13xLKDLlmZLz
-
-**Protótipo:**  
-https://www.figma.com/design/bTaVNeodvI9vuvaZJR0ojm?node-id=
+[https://drive.google.com/uc?export=view&id=1mVeJ2Gs79G71yY26x9Dt13xLKDLlmZLz](https://drive.google.com/uc?export=download&id=1keV5ywojnk0BfpeD-W28cL0EQ10NLRRj
+)
