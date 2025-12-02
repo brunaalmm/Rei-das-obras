@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}{{ "Novo Fornecedor" if not fornecedor else "Editar Fornecedor" }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10 col-lg-10">
+        <div class="card shadow-sm">
+            <div class="card-header text-center">
+                <h4>{{ "Novo Fornecedor" if not fornecedor else "Editar Fornecedor" }}</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('fornecedores_bp.salvar' if not fornecedor else 'fornecedores_bp.atualizar') }}">
+                    {% if fornecedor %}
+                        <input type="hidden" name="id" value="{{ fornecedor.id }}">
+                    {% endif %}
+
+                    <!-- Razão Social + Nome Fantasia -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="razao_social" class="form-label">Razão Social</label>
+                            <input type="text" name="razao_social" id="razao_social" class="form-control"
+                                   value="{{ fornecedor.razao_social if fornecedor else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nome_fantasia" class="form-label">Nome Fantasia</label>
+                            <input type="text" name="nome_fantasia" id="nome_fantasia" class="form-control"
+                                   value="{{ fornecedor.nome_fantasia if fornecedor else '' }}">
+                        </div>
+                    </div>
+
+                    <!-- Email + Telefone -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" name="email" id="email" class="form-control"
+                                   value="{{ fornecedor.email if fornecedor else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="telefone" class="form-label">Telefone</label>
+                            <input type="text" name="telefone" id="telefone" class="form-control"
+                                   value="{{ fornecedor.telefone if fornecedor else '' }}">
+                        </div>
+                    </div>
+
+                    <!-- CPF/CNPJ + Tipo -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="cpf_cnpj" class="form-label">CPF/CNPJ</label>
+                            <input type="text" name="cpf_cnpj" id="cpf_cnpj" class="form-control"
+                                   value="{{ fornecedor.cpf_cnpj if fornecedor else '' }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="tipo_fornecedor" class="form-label">Tipo</label>
+                            <select name="tipo_fornecedor" id="tipo_fornecedor" class="form-select">
+                                <option value="Física" {% if fornecedor and fornecedor.tipo_fornecedor == 'Física' %}selected{% endif %}>Pessoa Física</option>
+                                <option value="Jurídica" {% if fornecedor and fornecedor.tipo_fornecedor == 'Jurídica' %}selected{% endif %}>Pessoa Jurídica</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Endereço + CEP -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="endereco" class="form-label">Endereço</label>
+                            <input type="text" name="endereco" id="endereco" class="form-control"
+                                   value="{{ fornecedor.endereco if fornecedor else '' }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cep" class="form-label">CEP</label>
+                            <input type="text" name="cep" id="cep" class="form-control"
+                                   value="{{ fornecedor.cep if fornecedor else '' }}">
+                        </div>
+                    </div>
+
+                    <!-- Botões -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-3">
+                        <button type="submit" style="background-color: #ff6200; color: white;" class="btn btn-danger rounded-pill px-4">
+                            <i class="bi bi-save"></i> {{ "Salvar" if not fornecedor else "Atualizar" }}
+                        </button>
+                        <a href="{{ url_for('fornecedores_bp.fornecedores') }}" class="btn btn-secondary rounded-pill px-4">
+                            <i class="bi bi-arrow-left"></i> Voltar
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

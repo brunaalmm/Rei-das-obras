@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}{{ "Novo Cliente" if not cliente else "Editar Cliente" }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10 col-lg-10">
+        <div class="card shadow-sm">
+            <div class="card-header text-center">
+                <h4>{{ "Novo Cliente" if not cliente else "Editar Cliente" }}</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST"
+                      action="{{ url_for('clientes_bp.salvar' if not cliente else 'clientes_bp.atualizar') }}">
+
+                    {% if cliente %}
+                        <input type="hidden" name="id" value="{{ cliente.id }}">
+                    {% endif %}
+
+                    <!-- Nome + Email -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" name="nome" id="nome" class="form-control"
+                                   value="{{ cliente.nome if cliente else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" name="email" id="email" class="form-control"
+                                   value="{{ cliente.email if cliente else '' }}" required>
+                        </div>
+                    </div>
+
+                    <!-- Telefone + CPF/CNPJ -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="telefone" class="form-label">Telefone</label>
+                            <input type="text" name="telefone" id="telefone" class="form-control"
+                                   value="{{ cliente.telefone if cliente else '' }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cpf_cnpj" class="form-label">CPF/CNPJ</label>
+                            <input type="text" name="cpf_cnpj" id="cpf_cnpj" class="form-control"
+                                   value="{{ cliente.cpf_cnpj if cliente else '' }}">
+                        </div>
+                    </div>
+
+                    <!-- Tipo + Data Nascimento -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="tipo_cliente" class="form-label">Tipo de Cliente</label>
+                            <select name="tipo_cliente" id="tipo_cliente" class="form-select">
+                                <option value="Física" {% if cliente and cliente.tipo_cliente == 'Física' %}selected{% endif %}>Pessoa Física</option>
+                                <option value="Jurídica" {% if cliente and cliente.tipo_cliente == 'Jurídica' %}selected{% endif %}>Pessoa Jurídica</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                            <input type="date" name="data_nascimento" id="data_nascimento" class="form-control"
+                                   value="{{ cliente.data_nascimento if cliente else '' }}">
+                        </div>
+                    </div>
+
+                    <!-- Endereço + CEP -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="endereco" class="form-label">Endereço</label>
+                            <input type="text" name="endereco" id="endereco" class="form-control"
+                                value="{{ cliente.endereco if cliente else '' }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cep" class="form-label">CEP</label>
+                            <input type="text" name="cep" id="cep" class="form-control"
+                                   value="{{ cliente.cep if cliente else '' }}">
+                        </div>
+                    </div>
+
+                    <!-- Botões -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-3">
+                        <button type="submit" style="background-color: #ff6200; color: white;" class="btn btn-danger rounded-pill px-4">
+                            <i class="bi bi-save"></i> {{ "Salvar" if not cliente else "Atualizar" }}
+                        </button>
+                        <a href="{{ url_for('clientes_bp.clientes') }}" class="btn btn-secondary rounded-pill px-4">
+                            <i class="bi bi-arrow-left"></i> Voltar
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

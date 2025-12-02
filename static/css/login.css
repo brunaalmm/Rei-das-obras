@@ -1,0 +1,200 @@
+:root {
+    --primary: #045cd0;
+    --primary-dark: #00357a;
+    --accent: #ff6200;
+    --accent-hover: #e55600;
+    --text-light: #f8f9fa;
+    --text-dark: #2b2d42;
+    --text-gray: #6c757d;
+    --bg-light: #f8fafc;
+    --white: #ffffff;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+    background-color: var(--bg-light);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.login-container {
+    display: flex;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    margin: 20px;
+    gap: 0;
+}
+
+.login-form-box {
+    background-color: var(--white);
+    padding: 60px 50px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.login-form-box h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    color: var(--text-dark);
+    font-weight: 600;
+    position: relative;
+}
+
+.login-form-box h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 50px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+.mb-3 {
+    margin-bottom: 28px;
+    position: relative;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid #e9ecef;
+    background-color: transparent;
+    outline: none;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    border-bottom-color: var(--primary);
+}
+
+.btn.login-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--accent);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 20px;
+    box-shadow: 0 4px 12px rgba(255, 98, 0, 0.2);
+}
+
+.btn.login-btn:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+.login-info-wrapper {
+    position: relative;
+    width: 450px;
+    height: 460px;
+}
+
+.corner-image {
+    position: absolute;
+    bottom: -50px;
+    right: -200px;
+    width: 330px;
+    height: auto;
+    z-index: 2;
+}
+
+.login-info-box {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--text-light);
+    padding: 30px 90px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 1;
+    text-align: center;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-info-box .logo {
+    margin-bottom: -10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.login-info-box img.logo-img {
+    width: 170px;
+    height: auto;
+    display: block;
+}
+
+.welcome-text {
+    font-size: 20px;
+    color: #fff;
+    line-height: 1.6;
+    text-align: left;
+    max-width: 100%;
+    width: 100%;
+}
+
+/* Efeitos responsivos */
+@media (max-width: 992px) {
+    .login-container {
+        flex-direction: column;
+    }
+
+    .login-form-box,
+    .login-info-wrapper {
+        width: 100%;
+    }
+
+    .corner-image {
+        flex-direction: column;
+    }
+
+    .login-info-box {
+        text-align: center;
+        align-items: center;
+    }
+}

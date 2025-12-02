@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ "Novo Usuário" if not usuario else "Editar Usuário" }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header text-center">
+                <h4>{{ "Novo Usuário" if not usuario else "Editar Usuário" }}</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" 
+                    action="{{ url_for('usuarios_bp.salvar' if not usuario else 'usuarios_bp.atualizar') }}">
+                    {% if usuario %}
+                    <input type="hidden" name="id" value="{{ usuario.id }}">
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nome de usuário</label>
+                        <input type="text" name="username" id="username" class="form-control"
+                        value="{{ usuario.username if usuario else '' }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">{{ "Nova senha" if usuario else "Senha" }}</label>
+                        <input type="password" name="password" id="password" class="form-control" {% if not usuario 
+                            %}required{% endif %}>
+                        {% if usuario %}
+                        <small class="form-text text-muted">Deixe vazio para manter a senha atual.</small>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Apelido</label>
+                        <input type="text" name="nome" id="nome" class="form-control"
+                        value="{{ usuario.nome if usuario else '' }}" required>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                        <button type="submit" style="background-color: #ff6200; color: white;" class="btn btn-danger rounded-pill px-4">
+                            <i class="bi bi-save"></i> {{ "Salvar" if not usuario else "Atualizar" }}
+                        </button>
+                        <a href="{{ url_for('usuarios_bp.usuarios') }}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Voltar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

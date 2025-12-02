@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Início - ERP{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-start">
+  <div class="mb-3 me-4" style="flex: 1;">
+    <h1 style="margin-top: 3rem;">Olá {{ username_usuario }}</h1>
+    <p>Bem-vindo ao sistema Rei das Obras. O que você deseja fazer hoje?</p>
+  </div>
+
+  {% if estoque_baixo %}
+  <div class="alert alert-warning mt-4" style="background-color: #ff6200; color: white; max-width: 400px; flex: 1;
+      padding: 1rem 1.25rem; border-radius: 0.5rem; box-shadow: 0 0 10px rgba(0, 53, 122, 0.3);">
+    <h5 style="color: white;"><i class="bi bi-exclamation-triangle-fill"></i> Estoque Baixo</h5>
+    <ul class="mb-0">
+      {% for produto in estoque_baixo %}
+        <li>{{ produto[0] }} - {{ produto[1] }} unidades</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+
+  <div class="stats-cards">
+
+    <div class="card" style="max-width: 300px;" id="hora-card">
+      <div class="card-body text-center">
+        <h6 id="dia-semana" class="mb-6">---</h6>
+        <div class="d-flex justify-content-between align-items-center">
+          <span id="hora" class="fs-3">--:--:--</span>
+          <span id="data" class="ms-3">-- de --</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h5 class="card-title">Clientes</h5>
+      <p class="card-text display-6">{{ total_clientes }}</p>
+    </div>
+
+    <div class="card">
+      <h5 class="card-title">Fornecedores</h5>
+      <p class="card-text display-6">{{ total_fornecedores }}</p>
+    </div>
+
+    <div class="card">
+      <h5 class="card-title">Pedidos</h5>
+      <p class="card-text display-6">{{ total_pedidos }}</p>
+    </div>
+
+    <div class="card">
+      <h5 class="card-title">Produtos</h5>
+      <p class="card-text mb-1">Total: <strong>{{ total_produtos }}</strong></p>
+    </div>
+  </div>
+<br>
+
+<div class="dashboard-charts">
+  <div class="chart-card text-center">
+    <h3>Faturamento Mensal</h3>
+    <canvas id="faturamentoChart"></canvas>
+  </div>
+
+  <div class="chart-card text-center">
+    <h3>Vendas por Categoria</h3>
+    <canvas id="categoriaChart"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+<script>
+  renderizarGraficoFaturamento();
+
+  // Gráfico de categorias via JSON
+  fetch("/api/vendas_por_categoria")
+    .then(response => response.json())
+    .then(data => {
+      renderizarGraficoCategorias(data.categorias, data.totais);
+    })
+    .catch(error => console.error("Erro ao carregar dados do gráfico:", error));
+</script>
+
+{% endblock %}

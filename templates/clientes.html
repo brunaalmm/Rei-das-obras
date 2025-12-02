@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Clientes - ERP{% endblock %}
+
+{% block content %}
+<h1 class="mt-4">Clientes</h1>
+
+<a href="{{ url_for('clientes_bp.novo') }}" class="btn btn-success mb-3" style="background-color: #045cd0; color: white;">
+    <i class="bi bi-plus-circle"></i> Novo Cliente
+</a>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark text-center">
+            <tr>
+                <th style="width: 60px;">ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>CPF/CNPJ</th>
+                <th style="width: 80px;">Tipo Cliente</th>
+                <th style="width: 120px;">Data Nasc.</th>
+                <th style="min-width: 100px;">Endereço</th>
+                <th style="width: 130px;">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td class="text-center">{{ cliente.id }}</td>
+                <td>{{ cliente.nome }}</td>
+                <td>{{ cliente.email }}</td>
+                <td>{{ cliente.telefone }}</td>
+                <td>{{ cliente.cpf_cnpj }}</td>
+                <td class="text-center">{{ cliente.tipo_cliente }}</td>
+                <td class="text-center">
+                    {% if cliente.data_nascimento %}
+                        {{ cliente.data_nascimento.strftime('%d/%m/%Y') }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td class="text-truncate" style="max-width: 300px;" title="{{ cliente.endereco }}, CEP: {{ cliente.cep }}">
+                    {{ cliente.endereco }}, CEP: {{ cliente.cep }}
+                </td>
+                <td class="text-nowrap">
+                    {% if not cliente.pedidos %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-3">
+                        <a href="{{ url_for('clientes_bp.excluir', id=cliente.id) }}"
+                            class="btn btn-danger btn-sm rounded" style="background-color: #ff1212; color: white;" 
+                           onclick="return confirm('Tem certeza que deseja excluir?')"> <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                    {% endif %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-3">
+                        <a href="{{ url_for('clientes_bp.editar', id=cliente.id) }}"
+                        class="btn btn-primary btn-sm me-1 rounded" style="background-color: #00c24d; color: white;"> <i class="bi bi-pencil"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

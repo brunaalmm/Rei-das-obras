@@ -1,0 +1,197 @@
+body {
+    padding-top: 100px;
+    overflow-x: hidden;
+}
+
+/* Sidebar base */
+.sidebar {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    background-color: #1d2e4a;
+    min-height: 100vh;
+    border-right: 1px solid #1d2e4a;
+    transition: all 0.3s ease;
+    padding-top: 1rem;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+    width: 200px;
+    z-index: 1050;
+}
+
+.sidebar .nav-link {
+    color: #ffffff;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    border-radius: 0.375rem;
+    transition: background-color 0.2s, color 0.2s;
+    padding: 0.75rem 0.75rem;
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    color: #ffffff;
+    transition: transform 0.2s ease;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #17263e;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.sidebar .nav-link:hover i {
+    transform: scale(1.1);
+}
+
+/* Sidebar minimizada (desktop) */
+.sidebar.minimized {
+    width: 90px !important;
+    overflow-x: hidden;
+}
+
+.sidebar.minimized .nav-link {
+    justify-content: center;
+}
+
+.sidebar.minimized .nav-link i {
+    margin-right: 0;
+}
+
+.sidebar.minimized .menu-text {
+    display: none !important;
+}
+
+/* Sidebar ativa no mobile */
+@media (max-width: 991.98px) {
+    .sidebar {
+        left: -250px;
+        width: 250px;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+
+    #main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+}
+
+/* Conteúdo principal */
+#main-content {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+    padding: 2rem;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+}
+
+.sidebar.minimized + #main-content {
+    width: calc(100% - 90px) !important;
+    margin-left: 90px;
+    padding-right: 20px;
+}
+
+/* Navbar personalizada */
+.custom-navbar {
+    background: linear-gradient(135deg, #045cd0 0%, #00357a 100%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1100;
+    position: fixed;
+    width: 100%;
+}
+
+.custom-navbar .navbar-brand img {
+    max-height: 40px;
+}
+
+.custom-navbar .btn,
+.custom-navbar .text-white {
+    color: #ffffff;
+}
+
+/* Ícones arredondados */
+.sidebar .nav-link i {
+    border-radius: 50%;
+    padding: 4px;
+}
+
+/* Ativo */
+.sidebar .nav-link.active {
+    background-color: #ffffff20;
+    font-weight: 700;
+}
+
+.sidebar .nav-link.active i {
+    color: #fff;
+}
+
+/* Cards de estatísticas */
+.stats-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.card {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    flex: 1;
+    min-width: 220px;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.card p {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #045cd0;
+}
+
+/* Área dos gráficos */
+.dashboard-charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+/* Estilo dos gráficos e progresso */
+.chart-card {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+}
+
+#categoriaChart {
+    width: 100% !important;
+    max-width: 410px;
+    height: 300px;
+    display: block;
+    margin: 0 auto;
+}
+
+#faturamentoChart {
+    width: 100% !important;
+    max-width: 600px;
+    height: 330px !important;
+    display: block;
+    margin: 0 auto;
+}

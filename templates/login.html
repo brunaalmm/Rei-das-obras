@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <!-- Bootstrap Lux -->
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <!-- Formulário de login -->
+        <div class="login-form-box">
+            <h2>Login ERP</h2>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Usuário</label>
+                    <input type="text" name="username" id="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Senha</label>
+                    <input type="password" name="password" id="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn login-btn">Entrar</button>
+            </form>
+        </div>
+
+        <!-- Bloco de boas-vindas -->
+        <div class="login-info-wrapper">
+            <div class="login-info-box">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='img/logo.rdo.png') }}" alt="Logo" class="logo-img" />
+                </div>
+                <p class="welcome-text">
+                    Olá caro colaborador, seja bem-vindo novamente! <br><br>
+                    Caso não tenha um login, verifique seu supervisor para criá-lo.
+                </p>
+            </div>
+            <img src="{{ url_for('static', filename='img/imagem1.png') }}" alt="Mascote" class="corner-image" />
+        </div>
+    </div>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Exibe erro se existir -->
+    {% if erro %}
+    <script>
+        Swal.fire({
+            position: 'top-center',
+            icon: 'error',
+            iconColor: '#fff',
+            title: '{{ erro }}',
+            text: 'Verifique com o seu supervisor para criá-lo ou redefinir sua senha.',
+            showConfirmButton: false,
+            timer: 3000,
+            background: '#ff6200',
+            color: 'white',
+            width: '500px'
+        });
+    </script>
+    {% endif %}
+</body>
+</html>

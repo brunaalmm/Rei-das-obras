@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Produtos - ERP{% endblock %}
+{% block content %}
+<h1 class="mt-4">Produtos</h1>
+
+<a href="{{ url_for('produtos_bp.novo_produto') }}" class="btn btn-success mb-3" style="background-color: #045cd0; color: white;">
+    <i class="bi bi-box-seam"></i> Novo Produto
+</a>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Código de Barras</th>
+                <th>Imagem do Código</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Categoria</th>
+                <th>Unidade</th>
+                <th>Fornecedor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+    <tbody>
+    {% for produto in produtos %}
+    <tr>
+        <td class="text-center">{{ produto.id }}</td>
+        <td>{{ produto.nome }}</td>
+        <td class="text-center">{{ produto.codigo_barras or '-' }}</td>
+        <td class="text-center">
+            {% if produto.codigo_barras %}
+                {% set caminho_imagem = 'barcodes/' ~ produto.codigo_barras ~ '.png' %}
+                {% if config %}
+                    <img src="{{ url_for('static', filename=caminho_imagem) }}" 
+                         alt="{{ produto.codigo_barras }}" 
+                         width="120"
+                         onerror="this.style.display='none'; this.parentNode.innerHTML='Imagem não gerada';">
+                {% else %}
+                    <!-- Fallback para desenvolvimento -->
+                    <img src="/static/{{ caminho_imagem }}" 
+                         alt="{{ produto.codigo_barras }}" 
+                         width="120"
+                         onerror="this.style.display='none'; this.parentNode.innerHTML='Imagem não encontrada';">
+                {% endif %}
+            {% else %}
+                <span class="text-muted">-</span>
+            {% endif %}
+        </td>
+        <td>{{ produto.descricao or '-' }}</td>
+        <td class="text-end">R$ {{ produto.preco | round(2) }}</td>
+        <td class="text-center">{{ produto.estoque }}</td>
+        <td class="text-center">{{ produto.categoria.nome if produto.categoria else '-' }}</td>
+        <td class="text-center">{{ produto.unidade.nome if produto.unidade else '-' }}</td>
+        <td>{{ produto.fornecedor.razao_social if produto.fornecedor else '-' }}</td>
+        <td class="text-nowrap text-center">
+            <a href="{{ url_for('produtos_bp.editar_produto', id=produto.id) }}" class="btn btn-success btn-sm me-1 rounded" style="background-color: #00c24d; color: white;">
+                <i class="bi bi-pencil"></i>
+            </a>
+            <a href="{{ url_for('produtos_bp.excluir_produto', id=produto.id) }}" class="btn btn-danger btn-sm rounded" style="background-color: #ff1212; color: white;" onclick="return confirm('Tem certeza que deseja excluir?')">
+                <i class="bi bi-trash"></i>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}
